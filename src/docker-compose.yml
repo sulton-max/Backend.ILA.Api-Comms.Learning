@@ -1,0 +1,17 @@
+﻿services:
+  milanjovanovich.rabbitmq:
+    image: milanjovanovich.rabbitmq
+    build:
+      context: .
+      dockerfile: MilanJovanovich.RabbitMq/Dockerfile
+
+    milan-rabbit-mq:
+      image: rabbitmq:3-management
+      container_name: milan-rabbit-queue
+      hostname: rabbit-queue
+      volumes:
+        - ././containers/queue/data/:var/lib/rabbitmq
+        - ././containers/queue/logs/:var/log/rabbitmq
+      environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
