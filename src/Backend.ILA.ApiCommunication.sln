@@ -9,7 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{D56A1C58-D7AA-4DA7-8C68-7699B813B23C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AsyncCommms", "AsyncCommms", "{D56A1C58-D7AA-4DA7-8C68-7699B813B23C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMq", "RabbitMq", "{4FCF93E3-E387-4C07-9275-B15713EA8806}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CourseRabbitInNet", "CourseRabbitInNet", "{0D5B603D-4CAF-4BB4-953F-3F5DF9ADC526}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "N1.Intro", "N1.Intro", "{5F380824-676D-476D-B1F6-BA14D1A659B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncComms.RabbitMq.CourseRabbitInNet.N1.Producer", "AsyncComms.RabbitMq.CourseRabbitInNet.N1.Producer\AsyncComms.RabbitMq.CourseRabbitInNet.N1.Producer.csproj", "{339B9E87-BBEA-4A9B-9F71-F2217FDB3FFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,11 +26,19 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0FFAD510-7623-4C3D-B0F1-E89A6D4250BE} = {11693388-5924-4710-8FBE-A0410A69AFAF}
+		{4FCF93E3-E387-4C07-9275-B15713EA8806} = {D56A1C58-D7AA-4DA7-8C68-7699B813B23C}
+		{0D5B603D-4CAF-4BB4-953F-3F5DF9ADC526} = {4FCF93E3-E387-4C07-9275-B15713EA8806}
+		{5F380824-676D-476D-B1F6-BA14D1A659B0} = {0D5B603D-4CAF-4BB4-953F-3F5DF9ADC526}
+		{339B9E87-BBEA-4A9B-9F71-F2217FDB3FFA} = {5F380824-676D-476D-B1F6-BA14D1A659B0}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0FFAD510-7623-4C3D-B0F1-E89A6D4250BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0FFAD510-7623-4C3D-B0F1-E89A6D4250BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FFAD510-7623-4C3D-B0F1-E89A6D4250BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FFAD510-7623-4C3D-B0F1-E89A6D4250BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{339B9E87-BBEA-4A9B-9F71-F2217FDB3FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{339B9E87-BBEA-4A9B-9F71-F2217FDB3FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{339B9E87-BBEA-4A9B-9F71-F2217FDB3FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{339B9E87-BBEA-4A9B-9F71-F2217FDB3FFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
