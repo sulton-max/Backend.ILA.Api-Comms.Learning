@@ -29,8 +29,6 @@ builder.Services.AddMassTransit(bussConfigurator =>
                 host.Password(settings.Password);
             });
     });
-
-    bussConfigurator.REceiveEnd
 });
 
 builder.Services.AddEndpointsApiExplorer();
