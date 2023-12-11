@@ -1,32 +1,32 @@
 using System.Text;
 using MediatR;
-using N2.Microservices.Common.Bus;
-using N2.Microservices.Common.Commands;
+using N2.Microservices.Common.Core.Models.Commands;
+using N2.Microservices.Common.Core.Models.Events;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 namespace N2.Microservices.EventBus.EventBus;
 
-public class RabbitMqEventBus : IEventBus
+public class RabbitMqEventBusBroker : IEventBusBroker
 {
     private readonly IMediator _mediator;
     private readonly Dictionary<string, List<Type>> _eventHandlers;
     private readonly List<Type> _eventTypes;
 
-    public RabbitMqEventBus(IMediator mediator)
+    public RabbitMqEventBusBroker(IMediator mediator)
     {
         _mediator = mediator;
         _eventHandlers = new Dictionary<string, List<Type>>();
         _eventTypes = new List<Type>();
     }
 
-    public Task SendCommand<T>(T command) where T : Command
+    public ValueTask PublishLocallyAsync<TEvent>(TEvent command) where TEvent : IEvent
     {
-        return _mediator.Send(command);
+        return new ValueTask(_mediator.Publish(command));
     }
 
-    public void Publish<T>(T @event) where T : Event
+    public ValueTask PublishAsync<T>(T @event) where T : IEvent
     {
         var factory = new ConnectionFactory()
         {
@@ -42,15 +42,17 @@ public class RabbitMqEventBus : IEventBus
         var body = Encoding.UTF8.GetBytes(message);
 
         channel.BasicPublish("", eventName, null, body);
+
+        return ValueTask.CompletedTask;
     }
 
-    public void Subscribe<T, TH>() where T : Event where TH : IEventHandler<T>
+    public ValueTask SubscribeAsync<TEvent, TEventHandler>() where TEvent : IEvent where TEventHandler : IEventHandler<TEvent>
     {
-        var eventName = typeof(T).Name;
-        var handlerType = typeof(TH);
+        var eventName = typeof(TEvent).Name;
+        var handlerType = typeof(TEventHandler);
 
-        if (!_eventTypes.Contains(typeof(T)))
-            _eventTypes.Add(typeof(T));
+        if (!_eventTypes.Contains(typeof(TEvent)))
+            _eventTypes.Add(typeof(TEvent));
 
         if (!_eventHandlers.ContainsKey(eventName))
             _eventHandlers.Add(eventName, new List<Type>());
@@ -58,10 +60,13 @@ public class RabbitMqEventBus : IEventBus
         if (_eventHandlers[eventName].Exists(handler => handler == handlerType))
             throw new ArgumentException($"{handlerType.Name} already registered for {eventName}");
 
-        StartBasicConsume<T>();
+        _eventHandlers[eventName].Add(typeof(TEventHandler));
+        StartBasicConsume<TEvent>();
+
+        return ValueTask.CompletedTask;
     }
 
-    public void StartBasicConsume<T>() where T : Event
+    public void StartBasicConsume<T>() where T : IEvent
     {
         var factory = new ConnectionFactory()
         {
