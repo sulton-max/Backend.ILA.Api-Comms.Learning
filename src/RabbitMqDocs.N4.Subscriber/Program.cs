@@ -63,6 +63,8 @@ homeFeedProcessingConsumer.Received += async (sender, eventArgs) =>
 await channel.BasicConsumeAsync(queue: identityVerificationQueueName, autoAck: false, consumer: verificationProcessingConsumer);
 await channel.BasicConsumeAsync(queue: homeFeedQueueName, autoAck: false, consumer: homeFeedProcessingConsumer);
 
+Console.ReadLine();
+
 public abstract class Event
 {
     public Guid Id { get; set; }
