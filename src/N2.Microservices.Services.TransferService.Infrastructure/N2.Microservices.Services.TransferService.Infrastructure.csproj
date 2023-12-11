@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\N2.Microservices.Common.EventBus\N2.Microservices.Common.EventBus.csproj" />
+      <ProjectReference Include="..\N2.Microservices.Services.TransferService.Application\N2.Microservices.Services.TransferService.Application.csproj" />
+      <ProjectReference Include="..\N2.Microservices.Services.TransferService.Persistence\N2.Microservices.Services.TransferService.Persistence.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\N2.Microservices.Common.EventBus\N2.Microservices.Common.EventBus.csproj" />
+      <ProjectReference Include="..\N2.Microservices.Services.BankingService.Application\N2.Microservices.Services.BankingService.Application.csproj" />
+      <ProjectReference Include="..\N2.Microservices.Services.BankingService.Persistence\N2.Microservices.Services.BankingService.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Transfers\" />
+    </ItemGroup>
+
+</Project>
