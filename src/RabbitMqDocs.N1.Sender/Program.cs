@@ -14,10 +14,25 @@ using var connection = await factory.CreateConnectionAsync();
 using var channel = await connection.CreateChannelAsync();
 
 // declare queue
-await channel.QueueDeclareAsync("hello-world", durable: false, exclusive: false, autoDelete: false, arguments: null);
+await channel.QueueDeclareAsync(
+    queue: "hello-world", // queue-name
+    durable: true, 
+    exclusive: false, 
+    autoDelete: false, 
+    arguments: null);
 
 // produce message
-var message = "Hello World!";
+var message = "Hello messaging!";
 var body = Encoding.UTF8.GetBytes(message);
 
-await channel.BasicPublishAsync(exchange: string.Empty, routingKey: "hello-world", body: body);
+// exchange types
+
+// direct exchange - routing key orqali ishlaydi
+// default exchange - rabbit mq tomonidan e'lon qilingan
+
+// publish message
+await channel
+    .BasicPublishAsync(
+        exchange: string.Empty, 
+        routingKey: "hello-world", // routing key - bu qaysi queue borishini belgilaydi
+        body: body);

@@ -15,7 +15,12 @@ using var connection = await connectionFactory.CreateConnectionAsync();
 using var channel = await connection.CreateChannelAsync();
 
 // declare queue
-await channel.QueueDeclareAsync(queue: "hello-world", durable: false, exclusive: false, autoDelete: false, arguments: null);
+await channel.QueueDeclareAsync(
+    queue: "hello-world", 
+    durable: false, 
+    exclusive: false, 
+    autoDelete: false, 
+    arguments: null);
 
 // create consumer
 var consumer = new EventingBasicConsumer(channel);
@@ -32,6 +37,9 @@ consumer.Received += (sender, eventArgs) =>
 };
 
 // start consuming
-await channel.BasicConsumeAsync(queue: "hello-world", autoAck: true, consumer: consumer);
+await channel.BasicConsumeAsync(
+    queue: "hello-world", 
+    autoAck: true, 
+    consumer: consumer);
 
 Console.ReadLine();

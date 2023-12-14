@@ -5,7 +5,7 @@ using RabbitMQ.Client.Events;
 // create connection factory
 var factory = new ConnectionFactory
 {
-    HostName = "localhost",
+    HostName = "localhost"
 };
 
 // create connection
@@ -15,25 +15,36 @@ using var connection = await factory.CreateConnectionAsync();
 using var channel = await connection.CreateChannelAsync();
 
 // set prefetch count
-channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+await channel.BasicQosAsync(prefetchSize: 0, prefetchCount: 5, global: false);
 
 // declare queue
 channel.QueueDeclare(queue: "hello-messaging", durable: true, exclusive: false, autoDelete: false, arguments: null);
 
 // create consumer
 var consumer = new EventingBasicConsumer(channel);
+// TODO : find out how to set timeout for consumer
 
 // create event handler
+var random = new Random();
+
 consumer.Received += async (sender, args) =>
 {
     var body = args.Body.ToArray();
     var message = Encoding.UTF8.GetString(body);
 
-    await Task.Delay(5_000);
+    await Task.Delay(random.Next(1_000, 3_000));
 
-    Console.WriteLine($"Received message: {message}");
-    
-    await channel.BasicAckAsync(deliveryTag: args.DeliveryTag, multiple: false);
+    var result = true;
+    if (result)
+    {
+        Console.WriteLine($"Received message: {message} {result}");
+        await channel.BasicAckAsync(deliveryTag: args.DeliveryTag, multiple: false);
+    }
+    else
+    {
+        Console.WriteLine($"Received message: {message} {result}");
+        await channel.BasicNackAsync(deliveryTag: args.DeliveryTag, multiple: false, requeue: true);
+    }
 };
 
 // start consuming

@@ -18,7 +18,7 @@ var connection = await connectionFactory.CreateConnectionAsync();
 var channel = await connection.CreateChannelAsync();
 
 // create exchange
-channel.ExchangeDeclare(notificationsExchangeName, ExchangeType.Direct, durable: true, autoDelete: false);
+await channel.ExchangeDeclareAsync(notificationsExchangeName, ExchangeType.Direct, durable: true, autoDelete: false);
 
 // create queue
 var queueName = await channel.QueueDeclareAsync(queue: renderProcessingQueueName, durable: true, exclusive: false, autoDelete: false);
