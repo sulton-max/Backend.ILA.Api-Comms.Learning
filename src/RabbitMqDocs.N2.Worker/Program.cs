@@ -22,7 +22,6 @@ channel.QueueDeclare(queue: "hello-messaging", durable: true, exclusive: false, 
 
 // create consumer
 var consumer = new EventingBasicConsumer(channel);
-// TODO : find out how to set timeout for consumer
 
 // create event handler
 var random = new Random();

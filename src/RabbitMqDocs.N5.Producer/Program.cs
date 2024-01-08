@@ -12,7 +12,7 @@ var connectionFactory = new ConnectionFactory
 // ResumeGeneratorService - ResumeProcessingSubscriber
 // NotificationAggregatorService - NotificationProcessingSubscriber
 
-// create connectioan
+// create connection
 var connection = await connectionFactory.CreateConnectionAsync();
 
 // create channel

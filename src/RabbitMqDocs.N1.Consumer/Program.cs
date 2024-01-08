@@ -24,7 +24,7 @@ await channel.QueueDeclareAsync(
 
 // create consumer
 var consumer = new EventingBasicConsumer(channel);
-
+    
 // create event handler
 consumer.Received += (sender, eventArgs) =>
 {
